@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Katalog Produk — Praktikum PAW Week 6</title>
+  <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+
+  <!-- ================= Navigation Header ================= -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand">
+        <div class="brand-icon">📦</div>
+        <div>Store<span>Hub</span></div>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link active">Katalog Produk</a></li>
+          <li><a href="form.html" class="nav-link">Buat Caption</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ================= Hero Section ================= -->
+  <section class="hero">
+    <div class="hero-content">
+      <span class="badge-tag">PPAW — WEEK 6</span>
+      <h1>Katalog Produk Terpadu</h1>
+      <p>Menampilkan data katalog produk secara dinamis menggunakan JavaScript Fetch API dari server DummyJSON.</p>
+    </div>
+  </section>
+
+  <!-- ================= Main Content Container ================= -->
+  <main class="container">
+    
+    <!-- Toolbar: Search, Filter & Refresh -->
+    <section class="toolbar">
+      <div class="search-filter-group">
+        <!-- Live Search Box -->
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" placeholder="Cari nama produk, brand, deskripsi..." autocomplete="off">
+        </div>
+
+        <!-- Category Dropdown Filter -->
+        <select id="categoryFilter" class="select-filter" aria-label="Filter berdasarkan kategori">
+          <option value="all">Semua Kategori</option>
+        </select>
+      </div>
+
+      <div class="toolbar-actions">
+        <span id="productCount" class="product-count">Memuat jumlah produk...</span>
+        <button type="button" id="reloadBtn" class="btn-refresh" title="Muat Ulang Data">
+          <span>🔄</span> Segarkan
+        </button>
+      </div>
+    </section>
+
+    <!-- State 1: Loading State (Spinner & Skeleton) -->
+    <section id="loadingState" class="state-box">
+      <div class="spinner"></div>
+      <h3 class="state-title">Sedang Mengambil Data Produk...</h3>
+      <p class="state-desc">Menghubungkan ke endpoint <code>https://dummyjson.com/products</code> melalui Fetch API.</p>
+      
+      <!-- Skeleton Placeholder Grid -->
+      <div class="skeleton-grid" style="margin-top: 2rem;">
+        <div class="skeleton-card">
+          <div class="skeleton-img"></div>
+          <div class="skeleton-line"></div>
+          <div class="skeleton-line short"></div>
+        </div>
+        <div class="skeleton-card">
+          <div class="skeleton-img"></div>
+          <div class="skeleton-line"></div>
+          <div class="skeleton-line short"></div>
+        </div>
+        <div class="skeleton-card">
+          <div class="skeleton-img"></div>
+          <div class="skeleton-line"></div>
+          <div class="skeleton-line short"></div>
+        </div>
+        <div class="skeleton-card">
+          <div class="skeleton-img"></div>
+          <div class="skeleton-line"></div>
+          <div class="skeleton-line short"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- State 2: Error State -->
+    <section id="errorState" class="state-box error-box hidden">
+      <div class="error-icon">⚠️</div>
+      <h3 class="state-title" style="color: #dc2626;">Gagal Memuat Data Produk</h3>
+      <p id="errorMessage" class="state-desc">Terjadi gangguan jaringan atau server tidak merespons.</p>
+      <button type="button" id="retryBtn" class="btn-retry">Coba Lagi</button>
+    </section>
+
+    <!-- State 3: Products Grid (Success State) -->
+    <section id="productsGrid" class="products-grid hidden" aria-live="polite">
+      <!-- Kartu produk akan dirender secara dinamis oleh js/index.js -->
+    </section>
+
+  </main>
+
+  <!-- ================= Modal Detail Produk ================= -->
+  <div id="detailModal" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <button type="button" id="modalCloseBtn" class="modal-close-btn" aria-label="Tutup Detail">✕</button>
+      <div id="modalBody">
+        <!-- Konten detail produk akan diisi secara dinamis -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= Footer ================= -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>Praktikum Pemrograman Aplikasi Web (PPAW) &bull; <strong>Week 6: DOM, Event Handling & Fetch API</strong></p>
+      <p style="margin-top: 0.35rem; font-size: 0.85rem;">Mahasiswa: <strong>Andhika Ryan Stito</strong> (NIM: <strong>20240140263</strong>)</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/fetch.js"></script>
+  <script src="js/index.js"></script>
+</body>
+</html>
