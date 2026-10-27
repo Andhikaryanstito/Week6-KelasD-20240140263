@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generator Caption — Praktikum PAW Week 6</title>
+  <link rel="stylesheet" href="css/form.css">
+</head>
+<body>
+
+  <!-- ================= Navigation Header ================= -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand">
+        <div class="brand-icon">📦</div>
+        <div>Store<span>Hub</span></div>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Katalog Produk</a></li>
+          <li><a href="form.html" class="nav-link active">Buat Caption</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ================= Hero Section ================= -->
+  <section class="hero">
+    <div class="hero-content">
+      <span class="badge-tag">PPAW — WEEK 6</span>
+      <h1>Generator Caption Sosial Media</h1>
+      <p>Buat draf caption promosi produk untuk Instagram & WhatsApp secara instan memanfaatkan JavaScript DOM Manipulation & Event Handling.</p>
+    </div>
+  </section>
+
+  <!-- ================= Main Container ================= -->
+  <main class="container">
+
+    <!-- Notifikasi Feedback Dinamis -->
+    <div id="feedbackBanner" class="feedback-banner hidden" role="alert">
+      <div class="feedback-content">
+        <span id="bannerIcon">🔔</span>
+        <span id="bannerMessage">Pesan notifikasi sistem</span>
+      </div>
+      <button type="button" id="bannerCloseBtn" class="banner-close-btn" aria-label="Tutup notifikasi">✕</button>
+    </div>
+
+    <!-- Layout Grid 2 Kolom: Form Input vs Hasil Caption -->
+    <div class="caption-layout-grid">
+
+      <!-- Kolom Kiri: Form Interaktif -->
+      <section class="card-box">
+        <div class="card-box-header">
+          <h2>Data Produk & Gaya</h2>
+          <p>Masukkan informasi produk dan pilih gaya caption yang ingin dibuat.</p>
+        </div>
+
+        <form id="captionForm" novalidate>
+          
+          <!-- Input 1: Nama Produk -->
+          <div class="form-group">
+            <label for="namaProduk" class="form-label">
+              Nama Produk <span class="required">*</span>
+            </label>
+            <input 
+              type="text" 
+              id="namaProduk" 
+              class="form-control" 
+              placeholder="Contoh: Annibale Colombo Bed" 
+              required
+              autocomplete="off"
+            >
+            <div id="namaError" class="invalid-feedback">Nama produk wajib diisi (minimal 3 karakter).</div>
+          </div>
+
+          <!-- Input 2 & 3: Harga & Diskon (Row) -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="hargaProduk" class="form-label">
+                Harga Produk ($ / Rp) <span class="required">*</span>
+              </label>
+              <input 
+                type="number" 
+                id="hargaProduk" 
+                class="form-control" 
+                placeholder="Contoh: 1500 atau 29.99" 
+                min="0.01" 
+                step="any"
+                required
+              >
+              <div id="hargaError" class="invalid-feedback">Harga produk harus lebih besar dari 0.</div>
+            </div>
+
+            <div class="form-group">
+              <label for="diskonProduk" class="form-label">Diskon / Promo (%)</label>
+              <input 
+                type="number" 
+                id="diskonProduk" 
+                class="form-control" 
+                placeholder="Contoh: 15" 
+                min="0" 
+                max="100"
+              >
+            </div>
+          </div>
+
+          <!-- Input 4: Keunggulan Tambahan -->
+          <div class="form-group">
+            <label for="keunggulanProduk" class="form-label">Keunggulan Utama (Opsional)</label>
+            <input 
+              type="text" 
+              id="keunggulanProduk" 
+              class="form-control" 
+              placeholder="Contoh: Garansi resmi 1 tahun, bahan premium" 
+              autocomplete="off"
+            >
+          </div>
+
+          <!-- Input 5: Radio Buttons Pilihan Gaya Template -->
+          <div class="form-group">
+            <label class="form-label">Pilih Gaya Template <span class="required">*</span></label>
+            <div class="template-options">
+              
+              <div class="template-card">
+                <input type="radio" id="gayaPromo" name="gayaTemplate" value="promo" checked>
+                <label for="gayaPromo" class="template-label">
+                  <span class="template-icon">📢</span>
+                  <span class="template-name">Promo</span>
+                  <span class="template-desc">Diskon heboh</span>
+                </label>
+              </div>
+
+              <div class="template-card">
+                <input type="radio" id="gayaSantai" name="gayaTemplate" value="santai">
+                <label for="gayaSantai" class="template-label">
+                  <span class="template-icon">☕</span>
+                  <span class="template-name">Santai</span>
+                  <span class="template-desc">Kasual & ramah</span>
+                </label>
+              </div>
+
+              <div class="template-card">
+                <input type="radio" id="gayaFormal" name="gayaTemplate" value="formal">
+                <label for="gayaFormal" class="template-label">
+                  <span class="template-icon">👔</span>
+                  <span class="template-name">Formal</span>
+                  <span class="template-desc">Elegan & rapi</span>
+                </label>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Tombol Aksi -->
+          <div style="margin-top: 1.5rem;">
+            <button type="submit" id="btnBuatCaption" class="btn-generate">
+              <span>✨</span> Buat Caption
+            </button>
+            <button type="button" id="btnResetForm" class="btn-reset">
+              Bersihkan Formulir
+            </button>
+          </div>
+
+        </form>
+      </section>
+
+      <!-- Kolom Kanan: Hasil Caption & Riwayat (DOM Output) -->
+      <aside class="result-column">
+        
+        <!-- Box 1: Hasil Caption Tergenerate -->
+        <div class="caption-result-box">
+          <div class="card-box-header">
+            <h3>Hasil Caption:</h3>
+            <p>Teks caption di bawah ini dihasilkan secara otomatis melalui manipulasi DOM.</p>
+          </div>
+
+          <div id="captionPreviewArea" class="caption-preview-area placeholder">
+Tekan tombol "Buat Caption" untuk menghasilkan teks promosi otomatis di sini.
+          </div>
+
+          <div class="caption-actions">
+            <button type="button" id="btnSalinCaption" class="btn-copy">
+              <span>📋</span> Salin Caption
+            </button>
+            <a id="btnKirimWhatsApp" href="#" target="_blank" class="btn-whatsapp">
+              <span>💬</span> Kirim ke WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <!-- Box 2: Riwayat Caption yang Dibuat (DOM Output Tambahan) -->
+        <div class="history-box">
+          <div class="history-header">
+            <h4>Riwayat Caption Dibuat</h4>
+            <span id="historyBadge" class="history-badge">0 Caption</span>
+          </div>
+
+          <div id="historyContainer" class="history-list">
+            <div class="empty-history">
+              Belum ada riwayat caption. Buat caption pertamamu sekarang!
+            </div>
+          </div>
+        </div>
+
+      </aside>
+
+    </div>
+
+  </main>
+
+  <!-- ================= Footer ================= -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>Praktikum Pemrograman Aplikasi Web (PPAW) &bull; <strong>Week 6: DOM, Event Handling & Fetch API</strong></p>
+      <p style="margin-top: 0.35rem; font-size: 0.85rem;">Mahasiswa: <strong>Andhika Ryan Stito</strong> (NIM: <strong>20240140263</strong>)</p>
+    </div>
+  </footer>
+
+  <!-- Script Form & Event Handling -->
+  <script src="js/form.js"></script>
+</body>
+</html>
